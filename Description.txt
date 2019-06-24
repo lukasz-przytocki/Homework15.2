@@ -1,0 +1,21 @@
+Treść zadania
+Tworzymy aplikację dla stacji kontroli pojazdów (tego miejsca, gdzie sprawdzamy raz do roku, czy nasz pojazd nadaje się do jazdy).
+
+W programie powinna być zdefiniowana kolejka pojazdów do przeglądu, przy czym każdy pojazd posiada takie informacje jak:
+
+- typ pojazdu (np. motocykl, samochód, samochód ciężarowy)
+- marka
+- model
+- rocznik
+- przebieg
+- numer VIN (unikalny ciąg liczb i znaków, możesz zmyślić)
+
+Program powinien posiadać trzy opcje:
+
+- po wciśnięciu 0 program powinien zakończyć swoje działanie,
+
+- po wciśnięciu 1 program powinien wczytać informacje o nowym pojeździe i pojazd ten powinien zostać dodany do kolejki,
+
+- po wciśnięciu 2 z kolejki powinien zostać pobrany kolejny pojazd, który zostanie poddany przeglądowi.
+*Dodatkowe (nieobowiązkowe)
+Dodaj zabezpieczenie, które przed zamknięciem aplikacji sprawdzi, czy kolejka pojazdów oczekujących na przegląd jest pusta. Jeżeli kolejka jest pusta, to aplikacja powinna się zakończyć, jeżeli nie, to informacje o pojazdach z kolejki powinny zostać zapisane do pliku. Po ponownym uruchomieniu aplikacji dane z pliku powinny zostać odczytane i umieszczone w kolejce, tak żebyśmy odzyskali stan aplikacji z przed jej zatrzymania.

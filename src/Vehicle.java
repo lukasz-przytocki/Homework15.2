@@ -15,11 +15,11 @@ public class Vehicle {
         this.VIN = VIN;
     }
 
-    public String getCarType() {
+    public String getVehicleType() {
         return vehicleType;
     }
 
-    public void setCarType(String vehicleType) {
+    public void setVehicleType(String vehicleType) {
         this.vehicleType = vehicleType;
     }
 
@@ -61,6 +61,10 @@ public class Vehicle {
 
     public void setVIN(String VIN) {
         this.VIN = VIN;
+    }
+
+    public String getVehicle(){
+       return vehicleType +';'+brand+';'+model+';'+year+';'+distance+';'+VIN;
     }
 
     @Override

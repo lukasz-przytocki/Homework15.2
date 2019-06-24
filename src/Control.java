@@ -1,9 +1,12 @@
+import java.io.*;
+import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
 
 public class Control {
 
-    private int welcomeScreen() {
+    private int welcomeScreen(String fileName) throws FileNotFoundException {
+        checkSavedData(fileName);
         Scanner scan = new Scanner(System.in);
         System.out.println("Enter option \n 0: Exit \n 1: Add new vehicle \n 2: Examine ");
         int userSelection = scan.nextInt();
@@ -36,11 +39,12 @@ public class Control {
         System.out.println("Vehicle is taken to diagnostic: " + vehicleQueue.poll());
     }
 
-    void userIntercom(Queue vehicleQueue){
-        int userSelection = welcomeScreen();
-        switch (userSelection){
+    void userIntercom(String fileName) throws IOException {
+        Queue<Vehicle> vehicleQueue=checkSavedData(fileName);
+        int userSelection = welcomeScreen(fileName);
+        switch (userSelection) {
             case 0:
-                System.out.println("Goodbye!");
+                checkIfEmptyQueue(vehicleQueue);
                 break;
             case 1:
                 addVehicle(vehicleQueue);
@@ -50,5 +54,48 @@ public class Control {
         }
 
     }
+
+    void saveData(Queue<Vehicle> vehicleQueue) throws IOException {
+        FileWriter fileWriter = new FileWriter("file.csv");
+        BufferedWriter bfw = new BufferedWriter(fileWriter);
+        while (!vehicleQueue.isEmpty()) {
+            bfw.write(vehicleQueue.poll().getVehicle());
+            bfw.newLine();
+
+        }
+        bfw.close();
+
+    }
+
+    Queue<Vehicle> readData(String fileName) throws FileNotFoundException {
+        Queue<Vehicle> vehicleQueue = new LinkedList<>();
+         Scanner scan = new Scanner(new File(fileName));
+        String[] tmp=null;
+        while (scan.hasNextLine()){
+            tmp = scan.nextLine().split(";");
+            Vehicle  vehicle = new Vehicle(tmp[0], tmp[1], tmp[2], Integer.valueOf(tmp[3]), Integer.valueOf(tmp[4]), tmp[5]);
+            vehicleQueue.offer(vehicle);
+        }
+        return vehicleQueue;
+    }
+
+    void checkIfEmptyQueue(Queue<Vehicle> vehicleQueue) throws IOException {
+        if(!vehicleQueue.isEmpty()){
+            saveData(vehicleQueue);
+            System.out.println("Data saved. Goodbye!");
+        }else{
+            System.out.println("Empty queue. Goodbye!");
+        }
+    }
+
+    Queue<Vehicle> checkSavedData(String fileName) throws FileNotFoundException {
+        Queue<Vehicle> vehicle = new LinkedList<>();
+        if(readData(fileName).size()!=0){
+            vehicle=readData(fileName);
+        }
+        return vehicle;
+    }
+
+
 
 }
